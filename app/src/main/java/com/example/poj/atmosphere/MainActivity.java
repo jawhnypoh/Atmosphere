@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
         // Construct a PlaceDetectionClient
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
-//        // Construct a GoogleApiClient
-//        mGoogleApiClient = new GoogleApiClient
-//                .Builder(this)
-//                .addApi(Places.GEO_DATA_API)
-//                .addApi(Places.PLACE_DETECTION_API)
-//                .enableAutoManage(this, this)
-//                .build();
+        // Construct a GoogleApiClient
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
