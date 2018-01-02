@@ -11,9 +11,11 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -22,7 +24,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnConnectionFailedListener {
 
     TextView cityField, detailsField, currentTempField, humidityField, pressureField, weatherIcon, updatedField;
 
@@ -61,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        @Override
+        public abstract void OnConnectionFailedListener(ConnectionResult result) {
+
+        }
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
