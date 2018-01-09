@@ -25,7 +25,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-public class MainActivity extends AppCompatActivity implements OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity {
 
     TextView cityField, detailsField, currentTempField, humidityField, pressureField, weatherIcon, updatedField;
 
@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
         setContentView(R.layout.activity_main);
 
         // Construct a GoogleApiClient
-        if(mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient
-                    .Builder(this)
-                    .addApi(Places.GEO_DATA_API)
-                    .addApi(Places.PLACE_DETECTION_API)
-                    .enableAutoManage(this, this)
-                    .build();
-        }
+//        if(mGoogleApiClient == null) {
+//            mGoogleApiClient = new GoogleApiClient
+//                    .Builder(this)
+//                    .addApi(Places.GEO_DATA_API)
+//                    .addApi(Places.PLACE_DETECTION_API)
+//                    .enableAutoManage(this, this)
+//                    .build();
+//        }
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
         }
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("errorTag", "Location Connection Failed. ");
-    }
+//    @Override
+//    public void onConnectionFailed(ConnectionResult connectionResult) {
+//        Log.d("errorTag", "Location Connection Failed. ");
+//    }
 }
