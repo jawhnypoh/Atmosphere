@@ -2,10 +2,12 @@ package com.example.poj.atmosphere;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
@@ -18,8 +20,6 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
     private TextView theAttribution;
     private GoogleApiClient mGoogleApiClient;
 
-    protected GeoDataClient mGeoDataClient;
-    protected PlaceDetectionClient mPlaceDetectionClient;
-
 
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
@@ -51,19 +48,15 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        // Construct a GeoDataClient
-        mGeoDataClient = Places.getGeoDataClient(this, null);
-
-        // Construct a PlaceDetectionClient
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
-
         // Construct a GoogleApiClient
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
+        if(mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient
+                    .Builder(this)
+                    .addApi(Places.GEO_DATA_API)
+                    .addApi(Places.PLACE_DETECTION_API)
+                    .enableAutoManage(this, this)
+                    .build();
+        }
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
@@ -73,13 +66,18 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
                 try {
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                     builder.setLatLngBounds(BOUNDS_MOUNTAIN_VIEW);
+                    Log.d("statusTag", "STATUS: Placepicker default location set ");
                     Intent intent = builder.build(MainActivity.this);
+
                     startActivityForResult(intent, PLACE_PICKER_REQUEST);
+                    Log.d("statusTag", "STATUS: Placepicker activity started ");
+
                 }
                 catch
                         (GooglePlayServicesRepairableException
                         | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
+                    Log.d("errorTag", "ERROR: Error has been found and caught");
                 }
             }
         });
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
             }
         });
 
-        asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
+            asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
     }
 
     protected void onActivityResult(int requestCode,
@@ -140,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d("errorTag", "Location Connection Failed. ");
     }
 }
