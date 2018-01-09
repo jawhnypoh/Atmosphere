@@ -1,7 +1,6 @@
 package com.example.poj.atmosphere;
 
-import android.app.Activity;
-import android.support.v4.content.ContextCompat;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Typeface;
@@ -15,12 +14,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PLACE_PICKER_REQUEST = 1;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+
     private TextView theName;
     private TextView theAddress;
     private TextView theAttribution;
-    private GoogleApiClient mGoogleApiClient;
 
 
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
@@ -82,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
         pressureField = (TextView)findViewById(R.id.pressure_field);
         weatherIcon = (TextView)findViewById(R.id.weather_icon);
         weatherIcon.setTypeface(weatherFont);
+
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                // Got the last known location. In some cases, this can be null.
+                if(location != null) {
+                    // TODO: Handle location object
+                }
+            }
+        });
 
         Functions.placeIdTask asyncTask = new Functions.placeIdTask(new Functions.AsyncResponse() {
             public void processFinish(String weatherCity, String weatherDescription, String weatherTemp,
