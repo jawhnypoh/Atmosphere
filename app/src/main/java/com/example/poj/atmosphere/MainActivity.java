@@ -1,6 +1,7 @@
 package com.example.poj.atmosphere;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Typeface;
@@ -63,11 +64,6 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
-
-        @Override
-        public abstract void OnConnectionFailedListener(ConnectionResult result) {
-
-        }
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
@@ -141,5 +137,10 @@ public class MainActivity extends AppCompatActivity implements OnConnectionFaile
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
