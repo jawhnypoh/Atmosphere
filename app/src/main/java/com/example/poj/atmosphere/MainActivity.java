@@ -1,7 +1,6 @@
 package com.example.poj.atmosphere;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +13,9 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -28,6 +25,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 public class MainActivity extends AppCompatActivity {
 
     TextView cityField, detailsField, currentTempField, humidityField, pressureField, weatherIcon, updatedField;
+
+    double Lat, Long;
 
     Typeface weatherFont;
 
@@ -48,15 +47,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        // Construct a GoogleApiClient
-//        if(mGoogleApiClient == null) {
-//            mGoogleApiClient = new GoogleApiClient
-//                    .Builder(this)
-//                    .addApi(Places.GEO_DATA_API)
-//                    .addApi(Places.PLACE_DETECTION_API)
-//                    .enableAutoManage(this, this)
-//                    .build();
-//        }
 
         Button locButton = (Button)findViewById(R.id.locButton);
 
@@ -137,8 +127,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onConnectionFailed(ConnectionResult connectionResult) {
-//        Log.d("errorTag", "Location Connection Failed. ");
-//    }
 }
