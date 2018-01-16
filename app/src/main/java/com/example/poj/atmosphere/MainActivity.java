@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
 
     TextView cityField, detailsField, currentTempField, humidityField, pressureField, weatherIcon, updatedField;
 
-    double Lat, Long;
+    String Lat, Long;
 
     Typeface weatherFont;
 
@@ -75,6 +75,7 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
         setContentView(R.layout.activity_main);
 
         createLocationRequest();
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -105,34 +106,7 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
             }
         });
 
-        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weathericons-regular-webfont.ttf");
-
-        cityField = (TextView)findViewById(R.id.city_field);
-        updatedField = (TextView)findViewById(R.id.updated_field);
-        detailsField = (TextView)findViewById(R.id.details_field);
-        currentTempField = (TextView)findViewById(R.id.current_temperature_field);
-        humidityField = (TextView)findViewById(R.id.humidity_field);
-        pressureField = (TextView)findViewById(R.id.pressure_field);
-        weatherIcon = (TextView)findViewById(R.id.weather_icon);
-        weatherIcon.setTypeface(weatherFont);
-
-
-        Functions.placeIdTask asyncTask = new Functions.placeIdTask(new Functions.AsyncResponse() {
-            public void processFinish(String weatherCity, String weatherDescription, String weatherTemp,
-                                      String weatherHumidity, String weatherPressure, String weatherUpdatedOn,
-                                      String weatherIconText, String sunRise) {
-
-                cityField.setText(weatherCity);
-                updatedField.setText(weatherUpdatedOn);
-                detailsField.setText(weatherDescription);
-                currentTempField.setText(weatherTemp);
-                humidityField.setText("Humidity: " +weatherHumidity);
-                pressureField.setText("Pressure: " +weatherPressure);
-                weatherIcon.setText(Html.fromHtml(weatherIconText));
-            }
-        });
-
-            asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
+        //setWeatherStats();
     }
 
     @Override
@@ -157,8 +131,8 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
 
     protected void startLocationUpdates() {
         // Check for permissions
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions(this, ActivityCompat.requestPermissions (
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
                     this, // Activity
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_LOCATION);
@@ -168,12 +142,47 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
         Log.d(TAG, "Location updating..........");
     }
 
+    protected void setWeatherStats() {
+        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weathericons-regular-webfont.ttf");
+
+        cityField = (TextView)findViewById(R.id.city_field);
+        updatedField = (TextView)findViewById(R.id.updated_field);
+        detailsField = (TextView)findViewById(R.id.details_field);
+        currentTempField = (TextView)findViewById(R.id.current_temperature_field);
+        humidityField = (TextView)findViewById(R.id.humidity_field);
+        pressureField = (TextView)findViewById(R.id.pressure_field);
+        weatherIcon = (TextView)findViewById(R.id.weather_icon);
+        weatherIcon.setTypeface(weatherFont);
+
+        Functions.placeIdTask asyncTask = new Functions.placeIdTask(new Functions.AsyncResponse() {
+            public void processFinish(String weatherCity, String weatherDescription, String weatherTemp,
+                                      String weatherHumidity, String weatherPressure, String weatherUpdatedOn,
+                                      String weatherIconText, String sunRise) {
+
+                cityField.setText(weatherCity);
+                updatedField.setText(weatherUpdatedOn);
+                detailsField.setText(weatherDescription);
+                currentTempField.setText(weatherTemp);
+                humidityField.setText("Humidity: " +weatherHumidity);
+                pressureField.setText("Pressure: " +weatherPressure);
+                weatherIcon.setText(Html.fromHtml(weatherIconText));
+            }
+        });
+
+        //Lat = String.valueOf(mCurrentLocation.getLatitude());
+        //Long = String.valueOf(mCurrentLocation.getLongitude());
+
+        asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
+        //asyncTask.execute(Lat, Long);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch(requestCode) {
             case PERMISSIONS_REQUEST_LOCATION: {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission was granted!
+                    // Permission was granted, run the rest of the app
+                    setWeatherStats();
                 }
                 else {
                     // Permission was denied, exit app

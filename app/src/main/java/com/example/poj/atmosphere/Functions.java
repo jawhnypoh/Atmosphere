@@ -8,9 +8,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
