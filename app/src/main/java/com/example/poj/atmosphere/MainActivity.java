@@ -106,6 +106,8 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
             }
         });
 
+        setWeatherStats();
+
     }
 
     @Override
@@ -114,7 +116,6 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
             case PERMISSIONS_REQUEST_LOCATION: {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted for location, run the rest of the app
-                    setWeatherStats();
                     startLocationUpdates();
                 }
                 else {
@@ -187,10 +188,10 @@ public class MainActivity extends Activity implements LocationListener, GoogleAp
             }
         });
 
-        //Lat = String.valueOf(mCurrentLocation.getLatitude());
-        //Long = String.valueOf(mCurrentLocation.getLongitude());
+        Lat = String.valueOf(mCurrentLocation.getLatitude());
+        Long = String.valueOf(mCurrentLocation.getLongitude());
 
-        //Log.d(TAG, "Latitude and Longitude: " + Lat + Long);
+        Log.d(TAG, "Latitude and Longitude: " + Lat + Long);
 
         asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
         //asyncTask.execute(Lat, Long);
