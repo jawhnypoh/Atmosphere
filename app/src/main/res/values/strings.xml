@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Atmosphere</string>
+    <string name="icon_loc">&#xf124;</string>
 </resources>
