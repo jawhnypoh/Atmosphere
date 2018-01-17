@@ -44,7 +44,6 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     String Latitude, Longitude;
 
     Typeface weatherFont;
-    Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
 
     public LocationManager locationManager;
     public Criteria criteria;
@@ -116,7 +115,8 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
             }
         });
 
-        //setWeatherStats();
+        getLocation();
+        setWeatherStats();
 
     }
 
@@ -131,18 +131,17 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
             Log.d(TAG, "GPS is turned on! ");
             Lat = location.getLatitude();
             Long = location.getLongitude();
-            Log.d(TAG, "Latitude and Longitude: " + Lat + " and " + Long);
+            Log.d(TAG, "getLastKnownLocation - Latitude and Longitude: " + Lat + " and " + Long);
 
         }
         else {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             Lat = location.getLatitude();
             Long = location.getLongitude();
+            Log.d(TAG, "requestLocationUpdates - Latitude and Longitude: " + Lat + " and " + Long);
+
         }
 
-        Log.d(TAG, "Latitude and Longitude: " + Lat + " and " + Long);
-
-        setWeatherStats();
     }
 
     protected void setWeatherStats() {
@@ -177,29 +176,29 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
         Latitude = String.valueOf(Lat);
         Longitude = String.valueOf(Long);
 
-        Log.d(TAG, "Latitude and Longitude: " + Latitude + Longitude);
+        Log.d(TAG, "setWeatherStats - Latitude and Longitude: " + Latitude + Longitude);
 
         //asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
         asyncTask.execute(Latitude, Longitude);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch(requestCode) {
-            case PERMISSIONS_REQUEST_LOCATION: {
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission was granted for location, run the rest of the app
-                    getLocation();
-                    startLocationUpdates();
-                }
-                else {
-                    // Permission was denied, exit app
-                    finish();
-                }
-                return;
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+//        switch(requestCode) {
+//            case PERMISSIONS_REQUEST_LOCATION: {
+//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // Permission was granted for location, run the rest of the app
+//                    getLocation();
+//                    startLocationUpdates();
+//                }
+//                else {
+//                    // Permission was denied, exit app
+//                    finish();
+//                }
+//                return;
+//            }
+//        }
+//    }
 
     @Override
     public void onStart() {
