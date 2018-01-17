@@ -8,8 +8,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -34,7 +32,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 public class WeatherActivity extends Activity implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -171,8 +168,6 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
             }
         });
 
-        //Latitude = String.valueOf(mCurrentLocation.getLatitude());
-        //Longitude = String.valueOf(mCurrentLocation.getLongitude());
         Latitude = String.valueOf(Lat);
         Longitude = String.valueOf(Long);
 
@@ -181,24 +176,6 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
         //asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
         asyncTask.execute(Latitude, Longitude);
     }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-//        switch(requestCode) {
-//            case PERMISSIONS_REQUEST_LOCATION: {
-//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    // Permission was granted for location, run the rest of the app
-//                    getLocation();
-//                    startLocationUpdates();
-//                }
-//                else {
-//                    // Permission was denied, exit app
-//                    finish();
-//                }
-//                return;
-//            }
-//        }
-//    }
 
     @Override
     public void onStart() {
