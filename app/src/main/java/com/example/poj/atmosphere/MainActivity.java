@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity  {
     private static final String TAG = "Location: ";
 
     Button enterButton;
+    TextView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
+
+        logo = findViewById(R.id.logo_icon);
+        logo.setTypeface(fontAwesomeFont);
 
         enterButton = findViewById(R.id.enterButton);
         enterButton.setTypeface(fontAwesomeFont);

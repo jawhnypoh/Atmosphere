@@ -96,6 +96,13 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
                 .addOnConnectionFailedListener(this)
                 .build();
 
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Go to About activity
+                goToAboutActivity();
+            }
+        });
+
         locButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,5 +284,10 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void goToAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Atmosphere</string>
+    <string name="app_icon">&#xf185;</string>
     <string name="icon_loc">&#xf124;</string>
     <string name="icon_about">&#xf05a;</string>
     <string name="icon_next">&#xf061;</string>
+    <string name="app_info">Atmosphere is a simple weather application that utilizes the OpenWeatherMap API and the Google Location API. </string>
 </resources>
