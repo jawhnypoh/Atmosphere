@@ -4,6 +4,7 @@ package com.example.poj.atmosphere;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,10 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
+
         enterButton = findViewById(R.id.enterButton);
+        enterButton.setTypeface(fontAwesomeFont);
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override

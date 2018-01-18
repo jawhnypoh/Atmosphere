@@ -77,18 +77,24 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
+
         setContentView(R.layout.activity_weather);
 
         createLocationRequest();
+
+        Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
+
+        Button locButton = findViewById(R.id.locButton);
+        Button aboutButton = findViewById(R.id.aboutButton);
+
+        locButton.setTypeface(fontAwesomeFont);
+        aboutButton.setTypeface(fontAwesomeFont);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
-        Button locButton = (Button)findViewById(R.id.locButton);
 
         locButton.setOnClickListener(new View.OnClickListener() {
             @Override
