@@ -280,7 +280,7 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
             setWeatherStats();
 
-            Toast.makeText(this, Latitude + Longitude, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, Latitude + ", " + Longitude, Toast.LENGTH_LONG).show();
 
         } else {
             super.onActivityResult(requestCode, resultCode, data);
