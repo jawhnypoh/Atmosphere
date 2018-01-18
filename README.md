@@ -15,3 +15,8 @@ In the case that the current API keys in this app don't work, you'll need to gen
 You can follow the links below to generate your own APIs:
 - [Open Weather Map API](https://openweathermap.org/appid#get)
 - [Google Places API](https://developers.google.com/places/web-service/get-api-key)
+
+## Concepts Learned
+- Handling Network Requests
+- Data through JSON
+- Working with APIs
