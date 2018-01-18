@@ -54,12 +54,10 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 100;
 
-    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
-            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
-
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     private static final String TAG = "Location: ";
+    private static final String PPTAG = "PlacePicker: ";
 
     private FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;
 
@@ -107,20 +105,19 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
             @Override
             public void onClick(View v) {
                 try {
+                    // By default, PlacePicker starts at device's current location
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                    builder.setLatLngBounds(BOUNDS_MOUNTAIN_VIEW);
-                    Log.d("statusTag", "STATUS: Placepicker default location set ");
+                    Log.d(PPTAG,    "Place Picker Started...Device location chosen");
                     Intent intent = builder.build(WeatherActivity.this);
 
                     startActivityForResult(intent, PLACE_PICKER_REQUEST);
-                    Log.d("statusTag", "STATUS: Placepicker activity started ");
 
                 }
                 catch
                         (GooglePlayServicesRepairableException
                         | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
-                    Log.d("errorTag", "ERROR: Error has been found and caught");
+                    Log.d(PPTAG, "Error caught ");
                 }
             }
         });
@@ -186,7 +183,6 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
         Log.d(TAG, "setWeatherStats - Latitude and Longitude: " + Latitude + Longitude);
 
-        //asyncTask.execute("44.5646", "-123.2620"); // Latitude and Longitude
         asyncTask.execute(Latitude, Longitude);
     }
 
@@ -263,23 +259,28 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     protected void onActivityResult(int requestCode,
                                     int resultCode, Intent data) {
 
+        Log.d(PPTAG, "requestCode: " + requestCode + " resultCode: " + resultCode);
         if (requestCode == PLACE_PICKER_REQUEST
                 && resultCode == RESULT_OK) {
 
             final Place place = PlacePicker.getPlace(data, this);
-            final CharSequence name = place.getName();
-            final CharSequence address = place.getAddress();
-            String attributions = (String) place.getName();
-            String theMsg = (String.format("Location: %s", place.getName()));
-            if (attributions == null) {
-                attributions = "";
+
+            if(place == null) {
+                Log.d(PPTAG, "PlacePicker returned null! ");
             }
 
-            theName.setText(name);
-            theAddress.setText(address);
-            theAttribution.setText(Html.fromHtml(attributions));
+            final LatLng placeLatLng = place.getLatLng();
+            Lat = placeLatLng.latitude;
+            Long = placeLatLng.longitude;
 
-            Toast.makeText(this, theMsg, Toast.LENGTH_LONG).show();
+            Latitude = String.valueOf(Lat);
+            Longitude = String.valueOf(Long);
+
+            Log.d(PPTAG, "PlacePicker LatLng: " + placeLatLng);
+
+            setWeatherStats();
+
+            Toast.makeText(this, Latitude + Longitude, Toast.LENGTH_LONG).show();
 
         } else {
             super.onActivityResult(requestCode, resultCode, data);
