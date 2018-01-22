@@ -20,4 +20,5 @@ You can follow the links below to generate your own APIs:
 - Handling Network Requests
 - Data through JSON
 - Working with APIs
+- Dealing with Android Activities and workflow
 - Implementing VCS 
