@@ -19,18 +19,6 @@
         android:textColor="#FFFFFF"
         android:textSize="50sp" />
 
-    <Button
-        android:id="@+id/enterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:text="@string/icon_next"
-        android:textSize="30sp"
-        android:textColor="#FFFFFF" />
-
     <TextView
         android:id="@+id/logo_icon"
         android:layout_width="wrap_content"

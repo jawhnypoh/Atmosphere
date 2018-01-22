@@ -19,7 +19,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity  {
 
     // How long the screen will stay in milliseconds
-    private int timeoutMillis = 5000;
+    private int timeoutMillis = 1500;
+    //private int timeoutMillis = 0;
 
     // Time when this link was created
     private long startTimeMillis = 0;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity  {
     private static final String TAG = "Location: ";
     private static final String M_TAG = "MainActivity: ";
 
-    Button enterButton;
     TextView logo;
 
     public int getTimeoutMillis() {
@@ -48,18 +48,6 @@ public class MainActivity extends AppCompatActivity  {
 
         logo = findViewById(R.id.logo_icon);
         logo.setTypeface(fontAwesomeFont);
-
-        enterButton = findViewById(R.id.enterButton);
-        enterButton.setTypeface(fontAwesomeFont);
-
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Move to next activity
-
-                goToNextActivity();
-            }
-        });
 
         startTimeMillis = System.currentTimeMillis();
 
@@ -82,6 +70,10 @@ public class MainActivity extends AppCompatActivity  {
                     PERMISSIONS_REQUEST_LOCATION);
             Log.d(TAG, "Asking for permissions first..........");
         }
+        else {
+            Log.d(TAG, "Permissions already granted, moving on ");
+            goToNextActivity();
+        }
     }
 
     @Override
@@ -102,6 +94,11 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+    /*
+     *
+     * This is thanks to http://pcessflight.com/smart-android-splash-screen-grabbing-permissions/
+     *
+     */
     private void goToNextActivity() {
         Log.d(M_TAG, "goToNextActivity() Called! ");
 
@@ -126,7 +123,5 @@ public class MainActivity extends AppCompatActivity  {
             }
         }, delayMillis);
 
-
     }
-
 }
