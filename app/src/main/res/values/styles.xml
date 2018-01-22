@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Theme for preferences -->
+    <style name="PreferencesTheme" >
+        <item name="android:background">#3F51B5</item>
+    </style>
+
 </resources>
