@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +18,26 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  {
 
+    // How long the screen will stay in milliseconds
+    private int timeoutMillis = 5000;
+
+    // Time when this link was created
+    private long startTimeMillis = 0;
+
     private static final int PERMISSIONS_REQUEST_LOCATION = 100;
     private static final String TAG = "Location: ";
+    private static final String M_TAG = "MainActivity: ";
 
     Button enterButton;
     TextView logo;
+
+    public int getTimeoutMillis() {
+        return timeoutMillis;
+    }
+
+    public Class getNextActivityClass() {
+        return WeatherActivity.class;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +61,15 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        askPermission();
+        startTimeMillis = System.currentTimeMillis();
+
+        if(Build.VERSION.SDK_INT >= 23) {
+            Log.d(M_TAG, "Build version SDK > 23, calling to ask permissions. ");
+            askPermission();
+        }
+        else {
+            goToNextActivity();
+        }
 
     }
 
@@ -65,7 +90,8 @@ public class MainActivity extends AppCompatActivity  {
             case PERMISSIONS_REQUEST_LOCATION: {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted for location, run the rest of the app
-
+                    Log.d(M_TAG, "Permission already granted, calling goToNextActivity() ");
+                    goToNextActivity();
                 }
                 else {
                     // Permission was denied, exit app
@@ -77,8 +103,30 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void goToNextActivity() {
-        Intent intent = new Intent(this, WeatherActivity.class);
-        startActivity(intent);
+        Log.d(M_TAG, "goToNextActivity() Called! ");
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+        long delayMillis = getTimeoutMillis() - (System.currentTimeMillis() - startTimeMillis);
+        if (delayMillis < 0) {
+            delayMillis = 0;
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, getNextActivityClass());
+                startActivity(intent);
+                finish();
+            }
+        }, delayMillis);
+
+
     }
 
 }

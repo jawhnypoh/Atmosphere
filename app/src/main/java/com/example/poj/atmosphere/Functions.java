@@ -32,6 +32,8 @@ public class Functions {
         String icon = "";
         if(actualId == 800){
             long currentTime = new Date().getTime();
+
+            Log.d("DATETAG: ", "The time is: " + currentTime);
             if(currentTime>=sunrise && currentTime<sunset) {
                 icon = "&#xf00d;";
             }
