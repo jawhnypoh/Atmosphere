@@ -68,10 +68,10 @@ public class MainActivity extends AppCompatActivity  {
                     this, // Activity
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_LOCATION);
-            Log.d(TAG, "Asking for permissions first..........");
+            Log.d(M_TAG, "Asking for permissions first..........");
         }
         else {
-            Log.d(TAG, "Permissions already granted, moving on ");
+            Log.d(M_TAG, "Permissions already granted, moving on ");
             goToNextActivity();
         }
     }

@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.graphics.Typeface;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -64,7 +65,6 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation;
-
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -149,6 +149,12 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
         }
 
+    }
+
+    protected void updateWeatherStats() {
+        // Call setWeatherStats() and call swipeRefreshing(false)
+        Log.d(TAG, "updateWeatherStats() Called! ");
+        setWeatherStats();
     }
 
     protected void setWeatherStats() {
@@ -252,6 +258,7 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
         super.onResume();
         if(mGoogleApiClient.isConnected()) {
             startLocationUpdates();
+            updateWeatherStats();
             Log.d(TAG, "Location update resumed..........");
         }
     }
