@@ -87,13 +87,13 @@
         android:background="@null"/>
 
     <Button
-        android:id="@+id/settingsButton"
+        android:id="@+id/aboutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/locButton"
-        android:text="@string/icon_settings"
+        android:text="@string/icon_about"
         android:textColor="#FFFFFF"
         android:background="@null"
         style="?android:attr/buttonStyleSmall"/>

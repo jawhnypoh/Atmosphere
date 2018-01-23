@@ -83,10 +83,10 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
 
         Button locButton = findViewById(R.id.locButton);
-        Button settingsButton = findViewById(R.id.settingsButton);
+        Button aboutButton = findViewById(R.id.aboutButton);
 
         locButton.setTypeface(fontAwesomeFont);
-        settingsButton.setTypeface(fontAwesomeFont);
+        aboutButton.setTypeface(fontAwesomeFont);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -94,7 +94,7 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        aboutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Go to Settings activity
                 goToSettingsActivity();
@@ -295,7 +295,8 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     }
 
     private void goToSettingsActivity() {
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, AboutActivity.class);
+
         startActivity(intent);
     }
 }

@@ -40,7 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/introText"
-        android:text="Version 2.1.0"
+        android:text="Version 2.2.1"
         android:textColor="#FFFFFF" />
 
     <TextView
