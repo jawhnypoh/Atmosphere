@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="#3F51B5"
+    android:background="#FFFFFF"
     tools:context="com.example.poj.atmosphere.MainActivity">
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="141dp"
         android:text="Atmosphere"
-        android:textColor="#FFFFFF"
+        android:textColor="#3F51B5"
         android:textSize="50sp" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"
         android:text="@string/app_icon"
-        android:textColor="#FFFFFF"
+        android:textColor="#3F51B5"
         android:textSize="100sp" />
 
 </RelativeLayout>

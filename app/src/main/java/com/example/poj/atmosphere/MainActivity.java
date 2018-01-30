@@ -8,12 +8,15 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -119,6 +122,8 @@ public class MainActivity extends AppCompatActivity  {
             public void run() {
                 Intent intent = new Intent(MainActivity.this, getNextActivityClass());
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
                 finish();
             }
         }, delayMillis);

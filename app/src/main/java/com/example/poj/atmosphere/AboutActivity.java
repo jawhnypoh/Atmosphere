@@ -11,6 +11,6 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Toast.makeText(this, "Please hire me.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Please hire me.", Toast.LENGTH_SHORT).show();
     }
 }
