@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import static java.security.AccessController.getContext;
 
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity  {
     private long startTimeMillis = 0;
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 100;
-    private static final String TAG = "Location: ";
+    private static final String TAG = "MA Location: ";
     private static final String M_TAG = "MainActivity: ";
 
     TextView logo;

@@ -57,7 +57,7 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
-    private static final String TAG = "Location: ";
+    private static final String TAG = "WA Location: ";
     private static final String PPTAG = "PlacePicker: ";
 
     private FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;
@@ -122,12 +122,13 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
             }
         });
 
-        getLocation();
-        setWeatherStats();
-
+//        getLocation();
+//        setWeatherStats();
     }
 
     protected void getLocation() {
+        mGoogleApiClient.connect();
+
         locationManager = (LocationManager)  this.getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
@@ -142,10 +143,17 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
 
         }
         else {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            Lat = location.getLatitude();
-            Long = location.getLongitude();
-            Log.d(TAG, "requestLocationUpdates - Latitude and Longitude: " + Lat + " and " + Long);
+            if(mGoogleApiClient.isConnected()) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                Lat = location.getLatitude();
+                Long = location.getLongitude();
+                Log.d(TAG, "requestLocationUpdates - Latitude and Longitude: " + Lat + " and " + Long);
+            }
+            else {
+                Log.d(TAG, "mGoogleApiClient isn't connected yet! ");
+
+                mGoogleApiClient.connect();
+            }
 
         }
 
@@ -196,7 +204,16 @@ public class WeatherActivity extends Activity implements LocationListener, Googl
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart..........");
-        mGoogleApiClient.connect();
+        if(this.mGoogleApiClient != null) {
+            Log.d(TAG, "mGoogleApiClient isn't null, trying to connect...");
+            mGoogleApiClient.connect();
+        }
+        if(!mGoogleApiClient.isConnected()) {
+            Log.d(TAG, "Connection failed, trying again...");
+            mGoogleApiClient.connect();
+        }
+        getLocation();
+        setWeatherStats();
     }
 
     @Override
